@@ -1,11 +1,11 @@
 # FuelSim
-This single-file mini-library is a lightweight fuel physics simulation. It handles fuel-fuel, fuel-field, fuel-net, and fuel-robot collisions as well as projectile motion and scoring in the hub. There is also included functionality for intakes. It's not a perfect analog of real life, as some of the parameters need to be tuned (namely the coefficients of restitution of various collisions), but it is close enough for simulation purposes. I built this using AdvantageKit's built-in logging, but it can easily be modified to use any logging method by swapping out a single line of code.
+This single-file mini-library is a lightweight fuel physics simulation. It handles fuel-fuel, fuel-field, fuel-net, fuel-trench, and fuel-robot collisions as well as projectile motion (ignoring air resistance) and scoring in the hub. There is also included functionality for intakes. It's not a perfect analog of real life, as some of the parameters need to be tuned (namely the coefficients of restitution of various collisions), but it is close enough for simulation purposes. I built this using AdvantageKit's built-in logging, but it can easily be modified to use any logging method as demonstrated below.
 ## Demo
 https://github.com/user-attachments/assets/3b0a20c8-bec2-441b-a4a5-fdaee0f9cb8c
 
 ## Usage
 ### Installation
-Simply copy over FuelSim.java into your project!
+Simply copy over FuelSim.java into your project! If you put it somewhere other than a "utils" folder, make sure to edit the package name at the top of the file.
 ### Setup
 All measurements are in meters. Logging is done automatically when updateSim is called.
 
