@@ -170,7 +170,9 @@ public class FuelSim {
     private static final double CELL_SIZE = 0.25;
     private static final int GRID_COLS = (int) Math.ceil(FIELD_LENGTH / CELL_SIZE);
     private static final int GRID_ROWS = (int) Math.ceil(FIELD_WIDTH / CELL_SIZE);
-    private final ArrayList<Fuel>[][] grid;
+
+    @SuppressWarnings("unchecked")
+    private final ArrayList<Fuel>[][] grid = new ArrayList[GRID_COLS][GRID_ROWS];
 
     private void handleFuelCollisions(ArrayList<Fuel> fuels) {
         // Clear grid
@@ -210,6 +212,7 @@ public class FuelSim {
                 }
             }
         }
+    }
 
     private ArrayList<Fuel> fuels = new ArrayList<Fuel>();
     private boolean running = false;
@@ -617,5 +620,12 @@ public class FuelSim {
         }
     }
 
-    private FuelSim() {}
+    private FuelSim() {
+        // Initialize grid
+        for (int i = 0; i < GRID_COLS; i++) {
+            for (int j = 0; j < GRID_ROWS; j++) {
+                grid[i][j] = new ArrayList<Fuel>();
+            }
+        }
+    }
 }
