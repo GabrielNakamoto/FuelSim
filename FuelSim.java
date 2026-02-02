@@ -281,8 +281,8 @@ public class FuelSim {
 
     private ArrayList<Fuel> fuels = new ArrayList<Fuel>();
     private boolean running = false;
-    private Supplier<Pose2d> robotSupplier = null;
-    private Supplier<ChassisSpeeds> robotSpeedsSupplier = null;
+    private Supplier<Pose2d> robotPoseSupplier = null;
+    private Supplier<ChassisSpeeds> robotFieldSpeedsSupplier = null;
     private double robotWidth; // size along the robot's y axis
     private double robotLength; // size along the robot's x axis
     private double bumperHeight;
@@ -387,8 +387,8 @@ public class FuelSim {
             double bumperHeight,
             Supplier<Pose2d> poseSupplier,
             Supplier<ChassisSpeeds> fieldSpeedsSupplier) {
-        this.robotSupplier = poseSupplier;
-        this.robotSpeedsSupplier = fieldSpeedsSupplier;
+        this.robotPoseSupplier = poseSupplier;
+        this.robotFieldSpeedsSupplier = fieldSpeedsSupplier;
         this.robotWidth = width;
         this.robotLength = length;
         this.bumperHeight = bumperHeight;
@@ -415,7 +415,7 @@ public class FuelSim {
 
             handleFuelCollisions(fuels);
 
-            if (robotSupplier != null) {
+            if (robotPoseSupplier != null) {
                 handleRobotCollisions(fuels);
                 handleIntakes(fuels);
             }
@@ -475,8 +475,8 @@ public class FuelSim {
     }
 
     private void handleRobotCollisions(ArrayList<Fuel> fuels) {
-        Pose2d robot = robotSupplier.get();
-        ChassisSpeeds speeds = robotSpeedsSupplier.get();
+        Pose2d robot = robotPoseSupplier.get();
+        ChassisSpeeds speeds = robotFieldSpeedsSupplier.get();
         Translation2d robotVel = new Translation2d(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond);
 
         for (Fuel fuel : fuels) {
@@ -485,7 +485,7 @@ public class FuelSim {
     }
 
     private void handleIntakes(ArrayList<Fuel> fuels) {
-        Pose2d robot = robotSupplier.get();
+        Pose2d robot = robotPoseSupplier.get();
         for (SimIntake intake : intakes) {
             for (int i = 0; i < fuels.size(); i++) {
                 if (intake.shouldIntake(fuels.get(i), robot)) {
